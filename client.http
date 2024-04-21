@@ -1,0 +1,42 @@
+@baseurl = http://localhost:3000
+@authToken = {{authenticate.response.body.access_token}}
+
+# @name create_account
+POST {{baseurl}}/accounts
+Content-Type: application/json
+
+{
+  "name": "Felipe Vieira Lima",
+  "email": "felip.7lima@hotmail.com",
+  "password": "123456"
+}
+
+###
+
+# @name authenticate
+POST {{baseurl}}/sessions
+Content-Type: application/json
+
+{
+  "email": "felip.7lima@hotmail.com",
+  "password": "123456"
+}
+
+###
+
+# @name create_question
+POST {{baseurl}}/questions
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "title": "Nova pergunta 2",
+  "content": "Conteudo da pergunta"
+}
+
+###
+
+# @name fetch_recent_questions
+GET {{baseurl}}/questions?page=1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
